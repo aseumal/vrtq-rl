@@ -29,6 +29,26 @@ VRTQ-RL extends the proprietary VRTQ test prioritization framework (Value 0.30, 
 
 ---
 
+## Screenshots
+
+**Overview** — live prioritization run, VRTQ score profile, AI summary
+
+![Overview](docs/screenshots/overview.png)
+
+**Baselines** — PPO vs. VRTQ Heuristic vs. Random vs. DQN, honestly compared on held-out data
+
+![Baselines](docs/screenshots/baselines.png)
+
+**Architecture** — the honest breakdown of what's deterministic, what's RL, and what's actually agentic
+
+![Architecture](docs/screenshots/architecture.png)
+
+**Agentic mode** — a real Supervisor↔Critic negotiation: the Critic requests a higher budget, the Supervisor re-runs selection, FDR improves from 48.6% to 78.4%
+
+![Agentic mode](docs/screenshots/agentic.png)
+
+---
+
 ## Architecture
 
 ```
