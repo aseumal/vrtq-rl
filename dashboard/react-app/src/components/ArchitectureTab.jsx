@@ -106,7 +106,7 @@ export default function ArchitectureTab() {
         <Layer label="4. Agentic Mode — agents/agentic_orchestrator.py (opt-in, requires OPENAI_API_KEY)">
           <Row boxes={[
             {
-              title: 'Supervisor', sub: 'AssistantAgent — calls the same 4 stages above as real tools, in order',
+              title: 'Supervisor', sub: 'AssistantAgent — calls 10 tools across 5 phases as it decides, not a fixed script',
               tag: 'Tool-calling LLM', tagColor: C.purple, tagBg: C.purpleBg,
             },
             {
@@ -114,8 +114,20 @@ export default function ArchitectureTab() {
               tag: 'Function execution', tagColor: C.textSec, tagBg: C.surface,
             },
             {
-              title: 'Critic', sub: 'AssistantAgent — reviews metrics, can REQUEST a re-run with adjusted budget/focus',
-              tag: 'Autonomous review', tagColor: C.purple, tagBg: C.purpleBg,
+              title: 'RiskReviewer', sub: 'Phase 0, before scoring — can challenge an ambiguous module classification',
+              tag: 'Pre-emptive challenge', tagColor: C.purple, tagBg: C.purpleBg,
+            },
+            {
+              title: 'SLAReviewer', sub: 'Phase 2 — can force a time-budgeted re-selection if execution time exceeds a CI SLA',
+              tag: 'Process review', tagColor: C.purple, tagBg: C.purpleBg,
+            },
+            {
+              title: 'ConfidenceReviewer', sub: "Phase 2.5 — can swap a pick the RL policy was barely confident about",
+              tag: 'Process review', tagColor: C.purple, tagBg: C.purpleBg,
+            },
+            {
+              title: 'Critic', sub: 'Phase 3 — reviews final outcome quality; budget-increase requests must now be justified against the SLA ceiling',
+              tag: 'Constrained outcome review', tagColor: C.purple, tagBg: C.purpleBg,
             },
           ]} />
         </Layer>
@@ -126,21 +138,45 @@ export default function ArchitectureTab() {
         <p style={{ color: C.textSec, lineHeight: 1.7, fontSize: 12.5, margin: '0 0 12px' }}>
           The default pipeline (Layer 2) stays exactly what it always was: a{' '}
           <strong style={{ color: C.textPri }}>deterministic 4-stage Python pipeline</strong>, not a multi-agent
-          conversation. <code style={{ color: C.teal }}>RiskScorerAgent</code> and{' '}
-          <code style={{ color: C.teal }}>TestSelectorAgent</code> — the stages that actually decide which tests to
-          run — are pure deterministic/RL Python with zero AutoGen involvement, and this is what every evaluation
-          script (<code>compare_baselines.py</code>, <code>validate_model.py</code>, <code>run_seed_sweep.py</code>)
-          exercises. It is never invoked by the agentic mode below.
+          conversation. The methods that run the actual selection algorithm —{' '}
+          <code style={{ color: C.teal }}>RiskScorerAgent.score()</code>'s VRTQ state-matrix math and{' '}
+          <code style={{ color: C.teal }}>TestSelectorAgent.select()</code>'s PPO inference — are pure
+          deterministic/RL Python; neither file has ever been modified by the agentic mode below and neither
+          imports AutoGen. This is what every evaluation script (<code>compare_baselines.py</code>,{' '}
+          <code>validate_model.py</code>, <code>run_seed_sweep.py</code>) exercises, untouched.
+        </p>
+        <p style={{ color: C.textSec, lineHeight: 1.7, fontSize: 12.5, margin: '0 0 12px' }}>
+          That's a narrower claim than "AutoGen never affects which tests run," though — it doesn't, while you're
+          on the Layer 2 default path. Once you opt into Layer 4, that's no longer true: the{' '}
+          <em>algorithm</em> (the neural net forward pass, the VRTQ formula) is still never touched by an LLM, but
+          the <em>inputs</em> to it genuinely are — RiskReviewer's module correction changes what
+          <code style={{ color: C.teal }}> score_risk()</code> computes, SLAReviewer's time-budget request and
+          ConfidenceReviewer's substitution directly change which test IDs end up in the final selection, and the
+          Critic's budget/focus decisions do too. So in agentic mode, AutoGen has real causal influence over the
+          outcome — it just exercises that influence by choosing arguments and corrections for still-deterministic
+          functions to act on, not by replacing the functions themselves.
+        </p>
+        <p style={{ color: C.textSec, lineHeight: 1.7, fontSize: 12.5, margin: '0 0 12px' }}>
+          A separate, <strong style={{ color: C.textPri }}>opt-in</strong> agentic mode (Layer 4, see the{' '}
+          <strong style={{ color: C.accent }}>Agentic</strong> tab) adds genuine multi-turn AutoGen collaboration —
+          and this is the part that actually earns the label: four different agents can each catch something the
+          others got wrong, and each can change the final outcome, not just generate more chat text.{' '}
+          <code style={{ color: C.purple }}>RiskReviewer</code> challenges an ambiguous module classification{' '}
+          <em>before</em> risk scoring ever runs on it (state-matrix dependency — fixing it after the fact would
+          need a full re-score). <code style={{ color: C.purple }}>SLAReviewer</code> checks the selection's real
+          execution time against a CI budget and can force a genuinely different, time-truncated re-selection.{' '}
+          <code style={{ color: C.purple }}>ConfidenceReviewer</code> inspects the PPO policy's actual per-pick
+          action probabilities and can substitute out the one pick the model was least sure about. The{' '}
+          <code style={{ color: C.purple }}>Critic</code> reviews final quality — but is now SLA-aware: it must
+          compute the projected time cost of any budget increase and is structurally blocked from requesting one
+          that would breach the ceiling, forcing it to justify a tradeoff explicitly instead of just asking for
+          more. Every reviewer's round count is capped by a hard Python counter, independent of what the LLM says.
         </p>
         <p style={{ color: C.textSec, lineHeight: 1.7, fontSize: 12.5, margin: 0 }}>
-          A separate, <strong style={{ color: C.textPri }}>opt-in</strong> agentic mode (Layer 4, see the{' '}
-          <strong style={{ color: C.accent }}>Agentic</strong> tab) adds genuine multi-turn AutoGen collaboration:
-          a Supervisor agent drives the same four pipeline
-          stages via real tool/function calls, and a Critic agent autonomously reviews the resulting metrics —
-          if FDR@50% is too low or selection is too concentrated in one module, the Critic can issue a{' '}
-          <code>REQUEST:</code> that triggers a genuine re-run with adjusted parameters, not just more chat text.
           This requires a real <code>OPENAI_API_KEY</code> and gracefully falls back to the deterministic pipeline
-          above if one isn't configured.
+          above if one isn't configured — verified to produce byte-identical output to the plain pipeline in that
+          case. It's also fully separate from the RL evaluation scripts above: none of them import anything from
+          this layer, so nothing here can affect the validated PPO results.
         </p>
       </div>
     </div>

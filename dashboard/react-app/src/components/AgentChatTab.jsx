@@ -6,6 +6,9 @@ const ROLE_COLOR = {
   Critic: C.purple,
   ToolExecutor: C.teal,
   Reviewer: C.textSec,
+  RiskReviewer: C.amber,
+  SLAReviewer: C.amber,
+  ConfidenceReviewer: C.amber,
 }
 
 function MessageBubble({ msg }) {
@@ -33,9 +36,12 @@ export default function AgentChatTab({ agenticStatus, onRun, result, loading }) 
       <SectionHeader>Agentic Mode — Multi-Agent Conversation (AutoGen)</SectionHeader>
 
       <p style={{ color: C.textSec, fontSize: 12.5, lineHeight: 1.7, marginBottom: 14, maxWidth: 760 }}>
-        A Supervisor agent calls the same four pipeline stages as the default Overview tab — but as real
-        tool/function calls it decides to make, not a fixed script. A Critic agent then reviews the resulting
-        metrics and can autonomously request one re-run with an adjusted budget or module focus.
+        A Supervisor agent drives the same pipeline stages as the default Overview tab via real tool/function
+        calls — but now three reviewers can genuinely push back before the result is final: a RiskReviewer
+        can challenge an ambiguous module classification before scoring even runs, an SLAReviewer can force a
+        re-selection if execution time exceeds a CI budget, a ConfidenceReviewer can swap out a pick the RL
+        policy was barely confident about, and a Critic reviews the final outcome quality — now constrained to
+        justify any budget increase against the same time ceiling, not just ask for more.
       </p>
 
       {!available && (

@@ -28,7 +28,13 @@ load_dotenv()
 
 TEST_BUDGET = int(os.getenv("TEST_BUDGET", 50))
 MAX_CRITIC_ROUNDS = 1
-TIMEOUT_SECONDS = 90
+MAX_AMBIGUITY_ROUNDS = 2
+SLA_SECONDS = 1200
+CONFIDENCE_THRESHOLD = 0.15
+# Bumped from 90s: with the 3 added negotiation phases (ambiguity, SLA,
+# confidence), worst-case message count roughly doubles versus the original
+# Supervisor+Critic-only flow.
+TIMEOUT_SECONDS = 180
 
 
 def run_agentic_pipeline(
@@ -36,6 +42,9 @@ def run_agentic_pipeline(
     test_suite_df=None,
     budget: int = TEST_BUDGET,
     max_critic_rounds: int = MAX_CRITIC_ROUNDS,
+    max_ambiguity_rounds: int = MAX_AMBIGUITY_ROUNDS,
+    sla_seconds: int = SLA_SECONDS,
+    confidence_threshold: float = CONFIDENCE_THRESHOLD,
     timeout_seconds: int = TIMEOUT_SECONDS,
     verbose: bool = True,
 ) -> Dict:
@@ -71,7 +80,13 @@ def run_agentic_pipeline(
     toolkit = PipelineToolkit(test_suite_df, budget, diff_text)
 
     def _run():
-        return run_conversation(toolkit, llm_config, max_critic_rounds=max_critic_rounds)
+        return run_conversation(
+            toolkit, llm_config,
+            max_critic_rounds=max_critic_rounds,
+            max_ambiguity_rounds=max_ambiguity_rounds,
+            sla_seconds=sla_seconds,
+            confidence_threshold=confidence_threshold,
+        )
 
     try:
         if verbose:

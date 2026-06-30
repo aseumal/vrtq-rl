@@ -217,6 +217,30 @@ class ChangeAnalyzerAgent:
             return "chore"
         return "feature"
 
+    def find_ambiguous_files(self, files: List[str]) -> List[Dict]:
+        """
+        Flag any file whose path matches 2+ modules' keyword lists in
+        MODULE_FILE_MAP (pure substring matching, same constant _map_to_modules
+        uses — kept in sync by construction since both read the same dict).
+        Additive: does not change _map_to_modules()'s behavior or signature,
+        used by the opt-in agentic mode's module-ambiguity negotiation.
+        """
+        ambiguous = []
+        for filepath in files:
+            filepath_lower = filepath.lower()
+            matched = {
+                module: [kw for kw in keywords if kw in filepath_lower]
+                for module, keywords in MODULE_FILE_MAP.items()
+                if any(kw in filepath_lower for kw in keywords)
+            }
+            if len(matched) >= 2:
+                ambiguous.append({
+                    "file": filepath,
+                    "candidate_modules": list(matched.keys()),
+                    "matched_keywords": matched,
+                })
+        return ambiguous
+
     def _process_dict_diff(self, diff: dict) -> Dict:
         """Handle pre-parsed diff dicts (used in testing)."""
         return {

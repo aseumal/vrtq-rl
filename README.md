@@ -145,15 +145,27 @@ pipeline — see the dashboard's Architecture tab for the honest breakdown of wh
 "agentic" about it. A separate, **opt-in** agentic mode adds genuine multi-turn AutoGen
 (`pyautogen==0.2.35`) collaboration on top of the same four stages, without changing them:
 
-- A **Supervisor** agent (`agents/agentic/supervisor.py`) drives `analyze_diff` → `score_risk` →
-  `select_tests` → `get_report_metrics` via real tool/function calls it decides to make.
-- A **Critic** agent (`agents/agentic/critic.py`) reviews the resulting metrics and can
-  autonomously issue `REQUEST: increase budget to X` (or request a different module focus) if
-  FDR@50% is poor or selection is too concentrated in one module — a real decision driven by the
-  LLM reasoning over the actual numbers, not a scripted branch.
-- The Supervisor can apply that feedback with one real re-run (`select_tests` + `get_report_metrics`
-  again) — capped at one re-run by a hard Python counter in `agents/agentic/conversation.py`,
-  regardless of what the LLM says.
+- A **Supervisor** agent (`agents/agentic/supervisor.py`) drives ten tools across five phases via
+  real tool/function calls it decides to make — not a fixed script.
+- Three reviewers can genuinely push back on the Supervisor's work, each independently capped by a
+  hard Python counter regardless of what the LLM says:
+  - **RiskReviewer** (Phase 0, before scoring) — challenges an ambiguous file-to-module
+    classification (e.g. a filename matching both "payment" and "auth") and can retract a module
+    via `reexamine_module_match` *before* `score_risk()` ever consumes it.
+  - **SLAReviewer** (Phase 2) — checks the selection's total execution time against a CI SLA
+    ceiling and can force a re-selection truncated by time instead of test count
+    (`select_tests_by_time_budget`).
+  - **ConfidenceReviewer** (Phase 2.5) — checks the PPO policy's actual action-probability
+    confidence on each pick (`model.policy.get_distribution(...)`) and can substitute the single
+    most uncertain pick for a VRTQ-heuristic-ranked one. Reframed deliberately to avoid a false
+    "this module was undertrained" narrative — every module is present in every training seed; the
+    honest framing is state/action-specific policy uncertainty.
+- The existing **Critic** (Phase 3) reviews final outcome quality and is now SLA-aware: before
+  requesting a budget increase it must compute the projected execution time
+  (`new_budget * avg_seconds_per_test`) and check it against the same SLA ceiling SLAReviewer uses —
+  if it would exceed the ceiling, the Critic must pivot to a `focus_modules` request or reply
+  `APPROVED-WITH-CAVEAT` instead, with the arithmetic shown explicitly. This turns "ask for more,
+  get more" into a genuinely constrained negotiation.
 
 **Setup**: requires a real `OPENAI_API_KEY` in `.env` (the default `gpt-4o-mini`, configurable via
 `AGENTIC_OPENAI_MODEL`). Without one, `agents/agentic_orchestrator.py::run_agentic_pipeline()`
@@ -166,10 +178,13 @@ python -m agents.orchestrator --agentic --modules payment_service auth_service -
 # or via the dashboard's "Agentic" tab, or POST /api/prioritize-agentic
 ```
 
-**Guardrails**: 30s per-LLM-request timeout, 90s whole-conversation wall-clock timeout
-(`ThreadPoolExecutor`-enforced), max 12/5 turns per chat phase, falls back to the deterministic
-pipeline on any exception. Cost: a few cents at most per run with `gpt-4o-mini` and the round caps
-above — there's no native pre-call token budget in `pyautogen==0.2.35`, so the real ceiling is the
+**Guardrails**: 30s per-LLM-request timeout, 180s whole-conversation wall-clock timeout
+(`ThreadPoolExecutor`-enforced, bumped from 90s once the three extra negotiation phases were added),
+independent round caps per phase (2 for module-ambiguity challenges, 1 each for SLA/confidence/Critic
+re-runs), falls back to the deterministic pipeline on any exception. Most runs add near-zero extra
+turns since each reviewer's default reply is a single-turn `APPROVED` — the extra phases only cost
+more when something genuinely needs correcting. Cost: a few cents at most per run with `gpt-4o-mini`
+— there's no native pre-call token budget in `pyautogen==0.2.35`, so the real ceiling is the
 turn/round caps, not a token limit.
 
 **Scope**: strictly additive. `evaluation/compare_baselines.py`, `evaluation/validate_model.py`,
