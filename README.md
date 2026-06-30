@@ -3,9 +3,8 @@
 > *Extending a Heuristic Test Prioritization Framework with Reinforcement Learning in Agentic QA Pipelines*
 
 **Author:** Anthony Seumal  
-**Affiliation:** Asian Institute of Management | Cambridge University Press & Assessment  
-**Target venues:** Software Testing, Verification & Reliability (STVR, Wiley) — primary, direct topical
-fit; Journal of Systems and Software (JSS, Elsevier, Q1); Information and Software Technology
+**Affiliation:** Asian Institute of Management 
+**Target venues:** Software Testing, Verification & Reliability (STVR, Wiley); Journal of Systems and Software (JSS, Elsevier, Q1); Information and Software Technology
 (IST, Elsevier, Q1)
 
 ---
