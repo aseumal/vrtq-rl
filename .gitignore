@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Models (too large for git)
+models/*.zip
+models/*.pkl
+
+# MLflow
+mlruns/
+
+# Environment
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# Node / frontend build
+node_modules/
+dist/
+
+# Regenerable synthetic data (python -m data.fault_injection)
+data/*.csv
+
+# Claude Code harness state (not project content)
+.claude/

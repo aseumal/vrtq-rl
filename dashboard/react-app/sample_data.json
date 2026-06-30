@@ -1,0 +1,178 @@
+{
+  "report": {
+    "method": "VRTQ Heuristic (fallback)",
+    "metrics": {
+      "fdr_25": 0.0811,
+      "fdr_50": 0.1622,
+      "fdr_100": 0.4054,
+      "ttff": 3,
+      "tsr": 0.75,
+      "faults_found": 15,
+      "total_faults": 37,
+      "tests_run": 50,
+      "total_tests": 200,
+      "estimated_time_saved_seconds": 2180.9
+    },
+    "top_tests": [
+      {
+        "rank": 1,
+        "test_id": "TEST_155",
+        "test_name": "test_payment_service_integration_155",
+        "module": "payment_service",
+        "test_type": "integration",
+        "vrtq_composite": 0.9,
+        "selection_score": 0.9,
+        "rationale": "in changed module, high risk (0.92), historical failure rate 33%, not run in 30 days",
+        "execution_time_seconds": 8.05
+      },
+      {
+        "rank": 2,
+        "test_id": "TEST_174",
+        "test_name": "test_auth_service_unit_174",
+        "module": "auth_service",
+        "test_type": "unit",
+        "vrtq_composite": 0.851,
+        "selection_score": 0.851,
+        "rationale": "in changed module, high risk (0.98), historical failure rate 35%, not run in 30 days",
+        "execution_time_seconds": 1.62
+      },
+      {
+        "rank": 3,
+        "test_id": "TEST_110",
+        "test_name": "test_auth_service_integration_110",
+        "module": "auth_service",
+        "test_type": "integration",
+        "vrtq_composite": 0.813,
+        "selection_score": 0.813,
+        "rationale": "in changed module, high risk (1.00), historical failure rate 53%",
+        "execution_time_seconds": 0.63
+      },
+      {
+        "rank": 4,
+        "test_id": "TEST_177",
+        "test_name": "test_reporting_engine_unit_177",
+        "module": "reporting_engine",
+        "test_type": "unit",
+        "vrtq_composite": 0.794,
+        "selection_score": 0.794,
+        "rationale": "high risk (1.00), historical failure rate 37%, not run in 30 days",
+        "execution_time_seconds": 2.98
+      },
+      {
+        "rank": 5,
+        "test_id": "TEST_141",
+        "test_name": "test_payment_service_integration_141",
+        "module": "payment_service",
+        "test_type": "integration",
+        "vrtq_composite": 0.782,
+        "selection_score": 0.782,
+        "rationale": "in changed module, high risk (1.00), historical failure rate 46%",
+        "execution_time_seconds": 9.03
+      },
+      {
+        "rank": 6,
+        "test_id": "TEST_095",
+        "test_name": "test_payment_service_integration_095",
+        "module": "payment_service",
+        "test_type": "integration",
+        "vrtq_composite": 0.777,
+        "selection_score": 0.777,
+        "rationale": "in changed module, high risk (1.00), historical failure rate 68%",
+        "execution_time_seconds": 30.02
+      },
+      {
+        "rank": 7,
+        "test_id": "TEST_188",
+        "test_name": "test_payment_service_e2e_188",
+        "module": "payment_service",
+        "test_type": "e2e",
+        "vrtq_composite": 0.776,
+        "selection_score": 0.776,
+        "rationale": "in changed module, high risk (1.00), historical failure rate 45%",
+        "execution_time_seconds": 50.23
+      },
+      {
+        "rank": 8,
+        "test_id": "TEST_053",
+        "test_name": "test_auth_service_integration_053",
+        "module": "auth_service",
+        "test_type": "integration",
+        "vrtq_composite": 0.776,
+        "selection_score": 0.776,
+        "rationale": "in changed module, high risk (0.95), historical failure rate 34%",
+        "execution_time_seconds": 13.22
+      },
+      {
+        "rank": 9,
+        "test_id": "TEST_169",
+        "test_name": "test_order_processing_unit_169",
+        "module": "order_processing",
+        "test_type": "unit",
+        "vrtq_composite": 0.772,
+        "selection_score": 0.772,
+        "rationale": "high risk (1.00), historical failure rate 44%, not run in 14 days",
+        "execution_time_seconds": 0.5
+      },
+      {
+        "rank": 10,
+        "test_id": "TEST_020",
+        "test_name": "test_payment_service_integration_020",
+        "module": "payment_service",
+        "test_type": "integration",
+        "vrtq_composite": 0.765,
+        "selection_score": 0.765,
+        "rationale": "in changed module, high risk (1.00), historical failure rate 41%",
+        "execution_time_seconds": 19.46
+      }
+    ],
+    "risk_summary": {
+      "modules_affected": [
+        "payment_service",
+        "auth_service"
+      ],
+      "n_affected_tests": 57,
+      "avg_risk_score": 0.727,
+      "high_risk_tests": 33,
+      "churn_score": 0.964,
+      "dependency_depth": 4
+    },
+    "git_context": {
+      "modules_affected": [
+        "auth_service",
+        "payment_service"
+      ],
+      "change_type": "feature",
+      "churn_score": 0.964
+    },
+    "summary": "This feature affects 2 module(s) (payment_service, auth_service). VRTQ-RL selected 50 tests, projected to detect 16% of faults at the 50% mark with first failure expected at test #3. Estimated time saved: 2181s vs running the full suite.",
+    "budget": 50,
+    "total_tests": 200
+  },
+  "comparison": [
+    {
+      "method": "Random",
+      "fdr_25": 0.054,
+      "fdr_50": 0.108,
+      "fdr_100": 0.227,
+      "ttff": 7.2,
+      "tsr": 0.821
+    },
+    {
+      "method": "VRTQ Heuristic",
+      "fdr_25": 0.0811,
+      "fdr_50": 0.1622,
+      "fdr_100": 0.4054,
+      "ttff": 3,
+      "tsr": 0.8
+    },
+    {
+      "method": "PPO (VRTQ-RL)",
+      "fdr_25": 0.0,
+      "fdr_50": 0.0,
+      "fdr_100": 0.0,
+      "ttff": 0,
+      "tsr": 0.0,
+      "note": "Train model first"
+    }
+  ]
+}
