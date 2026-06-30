@@ -13,7 +13,7 @@ this module is never imported by the RL evaluation scripts.
 Usage:
     python -m agents.agentic_orchestrator
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

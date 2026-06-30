@@ -13,7 +13,7 @@ Endpoints:
 Run with:
   uvicorn api.main:app --reload --port 8000
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

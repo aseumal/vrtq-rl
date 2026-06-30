@@ -6,7 +6,7 @@ ReportAgent: Generates human-readable prioritization report.
 Uses LLM for plain-English summary only (one focused call).
 All metrics computed deterministically — no hallucination risk on numbers.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

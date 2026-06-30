@@ -2,7 +2,7 @@
  * App.jsx — VRTQ-RL React Dashboard
  * Main entry point. Manages global state and tab routing.
  *
- * Author: Anthony Vallente
+ * Author: Anthony Seumal
  * Project: VRTQ-RL
  */
 import { useState, useEffect, useCallback } from 'react'

@@ -9,7 +9,7 @@ Used as the second RL baseline against PPO and VRTQ heuristic.
 Usage:
     python -m rl.train_dqn
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

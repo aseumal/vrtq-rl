@@ -6,7 +6,7 @@ ChangeAnalyzerAgent: Parses git diff and extracts structured features.
 Uses AutoGen AssistantAgent for change_type classification (LLM call).
 All other features extracted programmatically — no LLM tokens wasted.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

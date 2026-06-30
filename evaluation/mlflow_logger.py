@@ -3,7 +3,7 @@ evaluation/mlflow_logger.py
 ----------------------------
 MLflow logging utilities for VRTQ-RL experiments.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 import os

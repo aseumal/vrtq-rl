@@ -10,7 +10,7 @@ Usage:
     python -m agents.orchestrator
     python -m agents.orchestrator --modules payment_service auth_service --churn high
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

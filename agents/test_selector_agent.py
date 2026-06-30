@@ -8,7 +8,7 @@ returns ordered list of test IDs with confidence scores.
 
 Falls back to VRTQ heuristic if model not available.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

@@ -14,7 +14,7 @@ Usage:
     python -m evaluation.validate_model
     python -m evaluation.validate_model --model-path models/ppo_vrtq_rl_seed142.zip
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

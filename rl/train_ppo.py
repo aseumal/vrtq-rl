@@ -14,7 +14,7 @@ learn a generalizable selection policy.
 Usage:
     python -m rl.train_ppo
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

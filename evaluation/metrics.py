@@ -8,7 +8,7 @@ Metrics:
 - TTFF   : Time to First Failure (lower = better)
 - TSR    : Test Suite Reduction % (higher = better)
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

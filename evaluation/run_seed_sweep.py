@@ -15,7 +15,7 @@ not a single run, is the headline result that should go in the README.
 Usage:
     python -m evaluation.run_seed_sweep
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

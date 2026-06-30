@@ -13,7 +13,7 @@ Episode dynamics:
 - Reward: based on fault detection, risk coverage, cost
 - Done: when budget exhausted or all tests selected
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

@@ -8,7 +8,7 @@ returns a full state matrix ready for the PPO model.
 
 Pure computation — no LLM call needed. Zero token cost.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

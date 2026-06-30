@@ -6,7 +6,7 @@ re-run with adjusted parameters. This is the genuinely autonomous decision
 in the pipeline — whether to approve or push back isn't predetermined by a
 fixed script, it's the LLM reasoning over the actual numbers it's shown.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

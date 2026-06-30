@@ -5,7 +5,7 @@ Random test selection baseline.
 Selects tests in random order — no intelligence.
 Used as the floor baseline in comparisons.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

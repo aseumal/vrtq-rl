@@ -7,7 +7,7 @@ Never raises — returns None when no usable backend is configured, so
 callers (agents/agentic_orchestrator.py) can fall back to the deterministic
 pipeline cleanly instead of crashing on a missing/placeholder API key.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

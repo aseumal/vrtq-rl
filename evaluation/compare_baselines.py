@@ -17,7 +17,7 @@ dataset the other (stateless) methods were never at risk of overfitting to.
 Usage:
     python -m evaluation.compare_baselines
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

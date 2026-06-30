@@ -6,7 +6,7 @@ real tool/function calls (analyze_diff -> score_risk -> select_tests ->
 get_report_metrics), paired with a UserProxyAgent executor that actually
 runs the Python functions.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

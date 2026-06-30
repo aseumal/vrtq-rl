@@ -16,7 +16,7 @@ State vector (10 features per test):
   [8] execution_time_norm    - normalized exec time
   [9] test_type_encoded      - unit=0.0, integration=0.5, e2e=1.0
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

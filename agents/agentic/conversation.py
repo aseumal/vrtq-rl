@@ -10,7 +10,7 @@ Runs the two-phase agentic conversation:
      instruction, up to max_critic_rounds times (hard Python counter, not
      just a prompt instruction).
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

@@ -2,7 +2,7 @@
 
 > *Extending a Heuristic Test Prioritization Framework with Reinforcement Learning in Agentic QA Pipelines*
 
-**Author:** Anthony Vallente  
+**Author:** Anthony Seumal  
 **Affiliation:** Asian Institute of Management | Cambridge University Press & Assessment  
 **Target venues:** Software Testing, Verification & Reliability (STVR, Wiley) — primary, direct topical
 fit; Journal of Systems and Software (JSS, Elsevier, Q1); Information and Software Technology
@@ -198,10 +198,10 @@ vrtq-rl/
 ## Citation
 
 ```bibtex
-@article{vallente2026vrtqrl,
+@article{seumal2026vrtqrl,
   title   = {VRTQ-RL: Extending a Heuristic Test Prioritization Framework
              with Reinforcement Learning in Agentic QA Pipelines},
-  author  = {Vallente, Anthony},
+  author  = {Seumal, Anthony},
   journal = {Under review},
   note    = {Target venues: STVR, JSS, IST},
   year    = {2026}

@@ -6,7 +6,7 @@ Injects faults into the synthetic test suite using realistic patterns:
 - High historical failure rate increases fault probability
 - High VRTQ composite score correlates with fault presence
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

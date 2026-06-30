@@ -4,7 +4,7 @@ data/synthetic_test_suite.py
 Generates a synthetic test suite of N tests with realistic metadata,
 VRTQ scores, and historical failure patterns.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 
@@ -83,7 +83,7 @@ def compute_vrtq_scores(
     Compute VRTQ component scores.
 
     Weights: Value=0.30, Risk=0.35, Time=0.20, Quality=0.15
-    These are Anthony Vallente's proprietary VRTQ weights.
+    These are Anthony Seumal's proprietary VRTQ weights.
     """
     # Value: how much does this test protect business value?
     # Higher for critical modules and integration/e2e tests

@@ -1,7 +1,7 @@
 """
 rl/baselines/vrtq_heuristic.py
 --------------------------------
-VRTQ heuristic baseline — Anthony Vallente's proprietary framework.
+VRTQ heuristic baseline — Anthony Seumal's proprietary framework.
 
 Sorts tests by composite VRTQ score:
   composite = 0.30*Value + 0.35*Risk + 0.20*Time + 0.15*Quality
@@ -10,7 +10,7 @@ This is the key baseline VRTQ-RL must outperform to prove RL adds value
 beyond the heuristic. It's also the intellectual contribution that makes
 this research unique — we're comparing against our own prior work.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

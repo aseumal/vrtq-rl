@@ -9,7 +9,7 @@ itself would just relocate data leakage to a new fixed subset. Instead, train
 and eval each draw from disjoint dataset *seeds*, each producing a full
 independent 200-test suite via data.fault_injection.create_training_dataset.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 

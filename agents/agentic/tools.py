@@ -9,7 +9,7 @@ The LLM never sees a raw DataFrame or ndarray — the toolkit holds that state
 in session-scoped instance attributes and only exposes/accepts primitives
 (str, int, list[str], dict of scalars) across the tool-call boundary.
 
-Author: Anthony Vallente
+Author: Anthony Seumal
 Project: VRTQ-RL
 """
 
